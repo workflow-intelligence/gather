@@ -7,8 +7,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func (c *Client) CreateWorkflowIndex(Organization string, Repository string, RunId int64) (string, error) {
-	index := fmt.Sprintf("github_%v_%v_%v", Organization, Repository, RunId)
+func (c *Client) CreateWorkflowIndex(CI string, Organization string, Repository string, RunId int64) (string, error) {
+	index := fmt.Sprintf("%v_%v_%v_%v", CI, Organization, Repository, RunId)
 	ctx := context.Background()
 	res, err := c.OpenSearch.Indices.Create(ctx, opensearchapi.IndicesCreateReq{
 		Index: index,
