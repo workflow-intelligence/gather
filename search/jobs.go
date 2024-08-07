@@ -51,9 +51,8 @@ func (c *Client) CreateJobsIndex() error {
 			Str("index", "wi_jobs").
 			Err(err).
 			Msg("Could not create index")
-		return err
 	}
-	return nil
+	return err
 }
 
 func (c *Client) AddJob(CI string, Organization string, Repository string, RunId int64) (string, error) {
@@ -85,9 +84,23 @@ func (c *Client) AddJob(CI string, Organization string, Repository string, RunId
 			Int64("runid", RunId).
 			Err(err).
 			Msg("Could not add job")
-		return id, err
 	}
-	return id, nil
+	return id, err
+}
+
+func (c *Client) DeleteJob(DocumentId string) error {
+	ctx := context.Background()
+	_, err := c.OpenSearch.Document.Delete(ctx, opensearchapi.DocumentDeleteReq{
+		Index:      "wi_jobs",
+		DocumentID: DocumentId,
+	})
+	if err != nil {
+		log.Error().
+			Str("index", "wi_jobs").
+			Str("DocumentID", DocumentId).
+			Msg("Could not delete Job")
+	}
+	return err
 }
 
 type Job struct {
