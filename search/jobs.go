@@ -123,11 +123,11 @@ func (c *Client) PendingJobs() (JobList, error) {
 	}
 	for _, hit := range res.Hits.Hits {
 		var job Job
-		err := json.Unmarshal(hit.Fields, &job)
+		err := json.Unmarshal(hit.Source, &job)
 		if err != nil {
 			log.Error().
 				Str("id", "ERR00032021").
-				Str("json", string(hit.Fields)).
+				Str("json", string(hit.Source)).
 				Err(err).
 				Msg("Could not unmarshal job")
 			return nil, err
