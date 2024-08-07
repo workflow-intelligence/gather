@@ -106,6 +106,10 @@ components:
       title: Creating a workflow entry
       type: object
       properties:
+        ci:
+          type: string
+          description: The ci tool used, currently, only github is supported
+          example: github
         organization:
           type: string
           description: The github organization owning the repository

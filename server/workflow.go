@@ -10,6 +10,7 @@ import (
 )
 
 type CreateRequest struct {
+	CI           string `json:"ci"`
 	Organization string `json:"Organization"`
 	Repository   string `json:"repository"`
 	RunID        int64  `json:"run_id"`
@@ -30,14 +31,12 @@ func WorkflowCreate(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 		return
 	}
 
-	log.Debug().Str("Organization", c.Organization).Str("repository", c.Repository).Int64("runid", c.RunID).Str("id", "DBG0001010").Msg("Create workflow")
-	index, err := backend.CreateWorkflowIndex(c.Organization, c.Repository, c.RunID)
+	log.Debug().Str("CI", c.CI).Str("Organization", c.Organization).Str("repository", c.Repository).Int64("runid", c.RunID).Str("id", "DBG0001010").Msg("Create workflow")
+	index, err := backend.AddJob(c.CI, c.Organization, c.Repository, c.RunID)
 	if err != nil {
 		errorOut(w, 500, "ERR00010021", "Could not create index", err)
 		return
 	}
-	err = backend.AddJob(c.Organization, c.Repository, c.RunID)
-
 	CR := CreateResponse{Status: "OK", Index: index}
 
 	log.Debug().Str("status", CR.Status).Str("id", "DBG00010011").Msg("Workflow created")

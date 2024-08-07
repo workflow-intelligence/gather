@@ -4,12 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strings"
-	"time"
-
-	"github.com/davecgh/go-spew/spew"
 	opensearchapi "github.com/opensearch-project/opensearch-go/v4/opensearchapi"
 	"github.com/rs/zerolog/log"
+	"strings"
+	"time"
 )
 
 func (c *Client) CreateJobsIndex() error {
@@ -27,6 +25,9 @@ func (c *Client) CreateJobsIndex() error {
 				"@timestamp": {
 					"type": "date",
 					"format": "rfc3339_lenient"
+				},
+				"ci": {
+					"type": "text"
 				},
 				"organization": {
 					"type": "text"
@@ -55,10 +56,11 @@ func (c *Client) CreateJobsIndex() error {
 	return nil
 }
 
-func (c *Client) AddJob(Organization string, Repository string, RunId int64) error {
+func (c *Client) AddJob(CI string, Organization string, Repository string, RunId int64) (string, error) {
 	ctx := context.Background()
 	jobson := `{
 		"@timestamp": "%v",
+		"ci": %v,
 		"organization": "%v",
 		"repository": "%v",
 		"runid": %v
@@ -67,30 +69,30 @@ func (c *Client) AddJob(Organization string, Repository string, RunId int64) err
 	json := fmt.Sprintf(jobson, schedule, Organization, Repository, RunId)
 	document := strings.NewReader(json)
 	log.Debug().Str("json", json).Msg("Create job")
-	id := fmt.Sprintf("%v-%v-%v", Organization, Repository, RunId)
-	res, err := c.OpenSearch.Document.Create(ctx, opensearchapi.DocumentCreateReq{
+	id := fmt.Sprintf("%v_%v_%v_%v", CI, Organization, Repository, RunId)
+	_, err := c.OpenSearch.Document.Create(ctx, opensearchapi.DocumentCreateReq{
 		Index:      "wi_jobs",
 		DocumentID: id,
 		Body:       document,
 	})
-	spew.Dump(res)
 	if err != nil {
 		log.Error().
 			Str("id", "ERR00032010").
 			Str("index", "wi_jobs").
+			Str("ci", CI).
 			Str("organization", Organization).
 			Str("repositiory", Repository).
 			Int64("runid", RunId).
 			Err(err).
 			Msg("Could not add job")
-
-		return err
+		return id, err
 	}
-	return nil
+	return id, nil
 }
 
 type Job struct {
 	Timestamp    time.Time `json:"@timestamp"`
+	CI           string    `json:"ci"`
 	Organization string    `json:"organization"`
 	Repository   string    `json:"repository"`
 	RunId        int64     `json:"runid"`
@@ -132,7 +134,7 @@ func (c *Client) PendingJobs() (JobList, error) {
 				Msg("Could not unmarshal job")
 			return nil, err
 		}
-		key := fmt.Sprintf("%v-%v-%v", job.Organization, job.Repository, job.RunId)
+		key := fmt.Sprintf("%v_%v_%v_%v", job.CI, job.Organization, job.Repository, job.RunId)
 		list[key] = job
 	}
 
