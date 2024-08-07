@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Workflow Intelligence - Gather
+  description: |
+    # Workflow Intelligence
+    ## Gather
+    Gather is the backend/API of the workflow intelligence stack.
+  version: 0.1.9
+servers:
+  - url: /api
+security:
+  - bearerAuth: []
+paths:
+  /auth/login:
+    post:
+      summary: Login and obtain a token
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':    # status code
+          description: A Token to authenticate further requests to the protected API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        default:
+          description: An error message for a unsuccessful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/create:
+    post:
+      summary: Create a workflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowCreateRequest'
+      responses:
+        '200':    # status code
+          description: Feedback for successful workflow creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowCreateResponse'
+        default:
+          description: An error message if the workflow creation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ErrorMessage:
+      title: An error message
+      type: object
+      nullable: true
+      properties:
+        message:
+          type: string
+          description: The actual error message
+        error:
+          type: object
+          description: A go error object, if applicable
+    ErrorResponse:
+      title: An error message
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorMessage'
+    LoginRequest:
+      title: Login request with username and password
+      type: object
+      properties:
+        username:
+          type: string
+          description: Name of the user logging in
+          example: admin
+        password:
+          type: string
+          description: Password for the user signing in
+          example: password
+      required:
+        - user
+        - password
+    LoginResponse:
+      title: Answer to a successful login request
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorMessage'
+        token:
+          type: string
+          description: A jwt token which must be presented when accessing the protected API
+    WorkflowCreateRequest:
+      title: Creating a workflow entry
+      type: object
+      properties:
+        organization:
+          type: string
+          description: The github organization owning the repository
+          example: workflow-intelligence
+        repository:
+          type: string
+          description: The name of the repository
+          example: gather
+        run_id:
+          type: int64
+          description: 'A unique ID for the workflow run. In the workflow, this can be accessed as ${{ github.run_id }}'
+          example: 1234567890
+    WorkflowCreateResponse:
+      title: The response to a successful workflow creation request
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorMessage'
+        status:
+          type: string
+          description: This must be "OK", if the status has been created
+        index:
+          type: string
+          description: Name of the opensearch index used for storing the information

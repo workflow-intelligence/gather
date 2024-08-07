@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>gather - Gather data about github workflows</title>
+  <link rel="stylesheet" href="/static/css/lcars.min.css">
+  <style>
+
+
+  </style>
+  <link rel="stylesheet" href="/static/css/jquery-ui.min.css">
+  <link rel="stylesheet" href="/static/css/jquery-ui.structure.min.css">
+  <link rel="stylesheet" href="/static/css/jquery-ui.theme.min.css">
+  <link rel="stylesheet" href="/static/css/gather.css">
+  <script src="/static/js/jquery-3.7.1.min.js"></script>
+  <script>
+  $( function() {
+    var output_disabled = true;
+
+    function uiReset() {
+        $("#documentation").hide();
+        $("#about").hide();
+        $("#btn_box_documentation").removeClass("lcars-periwinkle-bg").addClass("lcars-indigo-bg");
+        $("#btn_box_about").removeClass("lcars-periwinkle-bg").addClass("lcars-indigo-bg");
+    }
+
+    $("#btn_documentation").click(function(){
+        uiReset();
+        $("#documentation").show();
+        $("#btn_box_documentation").removeClass("lcars-indigo-bg").addClass("lcars-periwinkle-bg");
+        return false;
+    })
+
+    $("#btn_about").click(function(){
+        uiReset();
+        $("#about").show();
+        $("#btn_box_about").removeClass("lcars-indigo-bg").addClass("lcars-periwinkle-bg");
+        return false;
+    })
+
+    uiReset();
+    $("#about").show();
+    $("#btn_box_about").removeClass("lcars-indigo-bg").addClass("lcars-periwinkle-bg");
+} );
+  </script>
+</head>
+<body>
+	<div class="lcars-app-container">
+
+		<!-- HEADER ==================================================== -->
+		<div id="header" class="lcars-row header lcars-indigo-bg">
+			<div class="lcars-elbow left-bottom lcars-indigo-bg"></div>
+			<div class="lcars-bar horizontal  lcars-indigo-bg">
+				<div class="lcars-title right lcars-indigo-bg">Gather</div>
+			</div>
+			<div class="lcars-bar horizontal right-end decorated lcars-indigo-bg"></div>
+		</div>
+		<!-- SIDE MENU ================================================= -->
+		<div id="left-menu" class="lcars-column start-space lcars-u-1">
+			<a href="" id="btn_documentation"><div id="btn_box_documentation" class="lcars-element button lcars-indigo-bg">Documentation</div></a>
+            <a href="" id="btn_about"><div id="btn_box_about" class="lcars-element button lcars-indigo-bg">About</div></a>
+			<!-- FILLER -->
+			<div class="lcars-bar lcars-u-1 lcars-indigo-bg"></div>
+		</div>
+		<!-- FOOTER ==================================================== -->
+		<div id="footer" class="lcars-row ">
+			<div class="lcars-elbow left-top lcars-indigo-bg"></div>
+			<div class="lcars-bar horizontal both-divider bottom lcars-indigo-bg"></div>
+			<div class="lcars-bar horizontal right-end left-divider bottom lcars-indigo-bg"></div>
+		</div>
+
+		<!-- MAIN CONTAINER -->
+		<div id="container">
+            <!-- documentation -->
+            <div class="lcars-column lcars-u-13" id="documentation">
+                <div class="lcars-bracket top hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                <div class="lcars-row fill centered"><h2 id="docu_top">Gather - Documentation</h2></div>
+                <div class="lcars-row fill centered">
+                    <a href="#docu_purpose"><div class="lcars-element button rounded lcars-indigo-bg">Purpose</div></a>
+                    <a href="#docu_usage"><div class="lcars-element button rounded lcars-indigo-bg">Usage</div></a>
+                    <a href="#docu_frontend"><div class="lcars-element button rounded lcars-indigo-bg">API</div></a>
+                    <a href="#docu_installation"><div class="lcars-element button rounded lcars-indigo-bg">Installation</div></a>
+                    <a href="#docu_configuration"><div class="lcars-element button rounded lcars-indigo-bg">Configuration</div></a>
+                </div>
+                <div class="lcars-bracket bottom hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                <section id="docu_purpose">
+                    <div class="lcars-bracket top hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                    <div class="lcars-row">
+                        <div class="lcars-column lcars-u-1"> &nbsp</div>
+                        <div class="lcars-column">
+                            <h3>Purpose</h3>
+                            <p>Gather is an API server which waits for a workflow to notify it and then gathers data about that workflow using the github API.</p>
+                        </div>
+                    </div>
+                    <div class="lcars-bracket bottom hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                </section>
+                <section id="docu_usage">
+                    <div class="lcars-bracket top hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                    <div class="lcars-row">
+                        <div class="lcars-column lcars-u-1"> &nbsp</div>
+                        <div class="lcars-column">
+                            <h3 id="docu_usage">Usage</h3>
+                            <p>Gather should be started as a microservice/container as part of the Workflow Intelligence stack.</p>
+                            <p>It can be configured by setting command line variables or by mounting a customized gather.yaml configuration file into the container.</p>
+                        </div>
+                    </div>
+                    <div class="lcars-bracket bottom hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                </section>
+                <section id="docu_frontend">
+                    <div class="lcars-bracket top hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"  id="docu_frontend"></div>
+                    <div class="lcars-row">
+                        <div class="lcars-column lcars-u-1"> &nbsp</div>
+                        <div class="lcars-column">
+                            <h3>Web Frontend</h3>
+                            <p>There is currently no real web frontend except for the documentation. Swagger is available under /static/swagger.</p>
+                        </div>
+                    </div>
+                    <div class="lcars-bracket bottom hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                </section>
+                <section id="docu_configuration">
+                    <div class="lcars-bracket top hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                    <div class="lcars-row">
+                        <div class="lcars-column lcars-u-1"> &nbsp</div>
+                        <div class="lcars-column">
+                            <h3>Configuration</h3>
+                            <h4>Commandline</h4>
+                            <p>gather uses cobra/viper for parsing the commandline flags and the config file "swagger.yaml". The following parameters are supported:</p>
+                            <dl>
+                                <dt>--config string</dt><dd>Config file (default "gather.yaml")</dd>
+                                <dt>-h, --help</dt><dd>help for gather</dd>
+                                <dt>-j, --jwtsecretkey string</dt>JWT secret key for token generation<dd></dd>
+                                <dt>-l, --logfile string</dt><dd>Where to log, defaults to stdout</dd>
+                                <dt>-L, --loglevel string</dt><dd>Loglevel can be one of panic, fatal, error, warn, info, debug, trace (default "info")</dd>
+                                <dt>-P, --opensearch_password string</dt><dd>Password for the opensearch user</dd>
+                                <dt>-u, --opensearch_url string</dt><dd>URL for the opensearch server (default "https://localhost:9200")</dd>
+                                <dt>-U, --opensearch_user string</dt><dd>Username for storing data in opensearch (default "gather")</dd>
+                                <dt>-p, --port int</dt><dd>Port to run the server on (default 1443)</dd>
+                                <dt>-s, --ssl</dt><dd>Whether to use SSL or not (default true)</li></dd>
+                            </dl>
+                            <h4>Keys</h4>
+                            <p>For every PKCS7 key you want to encrypt for, the keydir must contain a folder which in turn contains a
+                            file named "public_key.pkcs7.pem" containing the PUBLIC key to encrypt for. The name of the folders are used
+                            in the UI to select the keys.</p>
+                        </div>
+                    </div>
+                    <div class="lcars-bracket bottom hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                </section>
+            </div>
+            <!-- About -->
+			<div class="lcars-column lcars-u-13 lcars-black-bg" id="about">
+                <div class="lcars-row">
+                    <div class="lcars-bracket left hollow lcars-danub-bg" style="border-color: #68c; fill: #68c"></div>
+                    <div class="lcars-column lcars-u-10 full-centered">
+                        <h2>Gather</h2>
+                        Gather data about github workflows<br/>
+                        Version: 0.0.1<br/>
+                        Author: Jörn Ott<br/>
+                        License: <a href="https://opensource.org/license/gpl-3-0" target="_blank">GNU General Public License version 3</a><br/>
+                    </div>
+                    <div class="lcars-bracket right hollow lcars-dodger-blue-bg" style="border-color: #68c; fill: #68c"></div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+
+<audio id="audDummy"/><!--Just leave this here, just needed to enable automatic query canplay in the initialization code to load compatible media types -->
+<script src="/static/js/lcars_audio.js"></script>
+
+<script>
+	//All "booted" up notification. 
+	//Many browsers won't play this next sound because the user hasn't "blessed" the action with a UI click yet.
+	document.addEventListener("DOMContentLoaded", function(event) { 
+		lcarsAudio.Ready();
+	});
+
+	//Cosmetic-ish behavior: scroll to gets hidden by top row body frame, so we need to scroll back slighly to have the actual heading element for each section visible after an in-page navigation.
+	function locationHashChanged() {
+		if (location.hash.substr(-8) == "_section") {
+			console.info("in-page nav detected.");
+			setTimeout(function(){window.scrollBy(0,-100)}, 100);
+		}
+	}
+	window.onhashchange = locationHashChanged;
+
+</script>
+</body>
+</html>

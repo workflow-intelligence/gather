@@ -1,0 +1,90 @@
+/* roboto-condensed-300 - latin */
+@font-face {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 300;
+    src: local(''),
+         url('/static/fonts/roboto-condensed-v25-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/static/fonts/roboto-condensed-v25-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* roboto-condensed-regular - latin */
+  @font-face {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+         url('/static/fonts/roboto-condensed-v25-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/static/fonts/roboto-condensed-v25-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* roboto-condensed-700 - latin */
+  @font-face {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''),
+         url('/static/fonts/roboto-condensed-v25-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/static/fonts/roboto-condensed-v25-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  
+  
+p, h1, h2, h3 {
+    margin-top: 1em;
+}
+
+pre {
+    display: inline;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+table.localCustomFunWithCaptions caption {
+    margin-left: -.5em;
+    margin-bottom: .5em;
+    text-align: right;
+    border-right: .8em solid;
+    border-left: 32rem solid;
+    border-radius: .5em;
+    padding-right: .33em;
+    padding-bottom: -.15em;
+}
+#audio_class_summary {
+    font-size:.9rem;
+}
+
+.input {
+    min-width: 340px;
+    color: black;
+    width: 100%;
+}
+
+textarea.output {
+    font-family: 'Courier New', Courier, monospace;
+    min-width: 340px;
+    color: black;
+    width: 100%;
+}
+
+fieldset {
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+select {
+    overflow-y: hidden;
+    display: inline-block;
+    vertical-align: top;
+    padding: 1px;
+    margin:0px;
+    border: none;
+    font-family: "Roboto Condensed, Arial, sans-serif";
+    font-size: 1em;
+}
+
+option {
+    font-family: "Roboto Condensed, Arial, sans-serif";
+    font-size: 1em;
+}
