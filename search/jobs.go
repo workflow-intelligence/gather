@@ -59,13 +59,13 @@ func (c *Client) AddJob(CI string, Organization string, Repository string, RunId
 	ctx := context.Background()
 	jobson := `{
 		"@timestamp": "%v",
-		"ci": %v,
+		"ci": "%v",
 		"organization": "%v",
 		"repository": "%v",
 		"runid": %v
 		}`
 	schedule := time.Now().Add(time.Minute * time.Duration(5)).Format(time.RFC3339)
-	json := fmt.Sprintf(jobson, schedule, Organization, Repository, RunId)
+	json := fmt.Sprintf(jobson, schedule, CI, Organization, Repository, RunId)
 	document := strings.NewReader(json)
 	log.Debug().Str("json", json).Msg("Create job")
 	id := fmt.Sprintf("%v_%v_%v_%v", CI, Organization, Repository, RunId)

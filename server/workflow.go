@@ -39,7 +39,7 @@ func WorkflowCreate(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	}
 	CR := CreateResponse{Status: "OK", Index: index}
 
-	log.Debug().Str("status", CR.Status).Str("id", "DBG00010011").Msg("Workflow created")
+	log.Debug().Str("status", CR.Status).Str("id", "DBG00010020").Msg("Workflow created")
 	json, err := json.Marshal(CR)
 	if err != nil {
 		errorOut(w, 500, "ERR00010022", "Could marshal login info", err)
