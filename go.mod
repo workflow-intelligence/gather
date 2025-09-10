@@ -3,7 +3,7 @@ module github.com/workflow-intelligence/gather
 go 1.23.0
 
 require (
-	github.com/golang-jwt/jwt/v5 v5.2.1
+	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/opensearch-project/opensearch-go/v4 v4.1.0
 	github.com/rs/zerolog v1.33.0
